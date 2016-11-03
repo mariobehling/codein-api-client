@@ -152,3 +152,37 @@ class GCIAPIClient(object):
     if r.content:
       return r.json()
     return
+
+  def ListTaskInstances(self, page=1):
+    """Fetches a list of tasks.
+
+    Args:
+      page: Which page of results to return.
+
+    Returns:
+      A JSON encoded list of task instances.
+
+    Raises:
+      HTTPError: a 4XX client error or 5XX server error response was returned.
+    """
+    r = requests.get(self._Url('instances'), headers=self.headers,
+                     params={'page': page})
+    r.raise_for_status()
+    return r.json()
+
+  def GetTaskInstance(self, task_instance_id):
+    """Fetches a single task.
+
+    Args:
+      task_instance_id: An integer id for the task instance.
+
+    Returns:
+        A JSON encoded task instance.
+
+    Raises:
+      HTTPError: a 4XX client error or 5XX server error response was returned.
+    """
+    r = requests.get(self._Url('instances/%d' % task_instance_id),
+                     headers=self.headers)
+    r.raise_for_status()
+    return r.json()

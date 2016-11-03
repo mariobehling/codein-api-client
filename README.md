@@ -7,6 +7,8 @@ API Documentation is at https://developers.google.com/open-source/gci/api
 
 ./list_tasks.py --apikey APIKEY
 
+./list_instances.py --apikey APIKEY
+
 ./csv_uploader.py --apikey APIKEY file.csv
 
 Each script also supports other flags.  Use --help to see them.
