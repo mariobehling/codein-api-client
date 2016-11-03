@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # Copyright 2015 Google Inc. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +21,7 @@ import re
 import client as gciclient
 
 
-argparser = argparse.ArgumentParser(description='GCI CSV Task Uploader.')
+argparser = argparse.ArgumentParser(description='GCI Tasks')
 argparser.add_argument('--apikey', type=str, nargs='?', required=True,
                        help='api key')
 argparser.add_argument('--url', type=str, nargs='?',

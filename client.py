@@ -138,7 +138,8 @@ class GCIAPIClient(object):
       task_id: An integer id for the task.
 
     Returns:
-      A JSON encoded response, if there is content in the response.  Otherwise None.
+      A JSON encoded response, if there is content in the response.
+      Otherwise None.
 
     Raises:
       HTTPError: a 4XX client error or 5XX server error response was returned.
