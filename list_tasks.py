@@ -43,7 +43,7 @@ def main():
   while next_page > 0:
     tasks = client.ListTasks(page=next_page)
     for t in tasks['results']:
-      print '\t'.join([str(t['id']), t['name']])
+      print '\t'.join([str(t['id']), t['name'].encode('utf-8')])
 
     next_page = 0
     if tasks['next']:

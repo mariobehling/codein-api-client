@@ -45,9 +45,9 @@ def main():
     for ti in instances['results']:
       print '\t'.join([
           str(ti['id']),
-          ti['status'],
-          ti['student_display_name'],
-          ti['task_definition_name']
+          ti['status'].encode('utf-8'),
+          ti['student_display_name'].encode('utf-8'),
+          ti['task_definition_name'].encode('utf-8')
       ])
 
     next_page = 0
