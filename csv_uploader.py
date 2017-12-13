@@ -12,7 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """A simple CSV uploader client for the GCI API.
 
 Usage:
@@ -28,23 +27,26 @@ import argparse
 import csv
 
 import requests
+
 import client as gciclient
 
-
 argparser = argparse.ArgumentParser(description='GCI CSV Task Uploader.')
-argparser.add_argument('--apikey', type=str, nargs='?', required=True,
-                       help='api key')
-argparser.add_argument('--url', type=str, nargs='?',
-                       default='https://codein.withgoogle.com',
-                       help='server url')
-argparser.add_argument('--publish', action='store_true',
-                       help='publish uploaded tasks')
-argparser.add_argument('-v', '--verbose', action='store_true',
-                       help='enable verbose logging')
-argparser.add_argument('--debug', action='store_true',
-                       help='enable debug request logging')
-argparser.add_argument('files', nargs=argparse.REMAINDER,
-                       help='csv file to upload')
+argparser.add_argument(
+    '--apikey', type=str, nargs='?', required=True, help='api key')
+argparser.add_argument(
+    '--url',
+    type=str,
+    nargs='?',
+    default='https://codein.withgoogle.com',
+    help='server url')
+argparser.add_argument(
+    '--publish', action='store_true', help='publish uploaded tasks')
+argparser.add_argument(
+    '-v', '--verbose', action='store_true', help='enable verbose logging')
+argparser.add_argument(
+    '--debug', action='store_true', help='enable debug request logging')
+argparser.add_argument(
+    'files', nargs=argparse.REMAINDER, help='csv file to upload')
 
 FLAGS = argparser.parse_args()
 
@@ -52,13 +54,13 @@ FLAGS = argparser.parse_args()
 def upload(client, filename):
   """Creates new tasks for each line in the csv pointed to by filename.
 
-  Args:
-    client: A GCIAPIClient to form and make the requests.
-    filename: A string filename containing the csv encoded tasks.
+    Args:
+      client: A GCIAPIClient to form and make the requests.
+      filename: A string filename containing the csv encoded tasks.
 
-  Raises:
-    none
-  """
+    Raises:
+      none
+    """
   with open(filename, 'rb') as csvfile:
     taskreader = csv.DictReader(csvfile, skipinitialspace=True)
 
@@ -69,9 +71,9 @@ def upload(client, filename):
       t['categories'] = (task['categories'].split(',')
                          if len(task['categories']) else [])
       t['tags'] = task['tags'].split(',') if len(task['tags']) else []
-      t['is_beginner'] = (
-          True if task['is_beginner'].lower() in ['yes', 'true', '1']
-          else False)
+      t['is_beginner'] = (True if
+                          task['is_beginner'].lower() in ['yes', 'true', '1']
+                          else False)  # yapf disable
       t['time_to_complete_in_days'] = int(task['time_to_complete_in_days'])
       t['max_instances'] = int(task['max_instances'])
 
@@ -86,9 +88,7 @@ def upload(client, filename):
 
 def main():
   client = gciclient.GCIAPIClient(
-      auth_token=FLAGS.apikey,
-      url_prefix=FLAGS.url,
-      debug=FLAGS.debug)
+      auth_token=FLAGS.apikey, url_prefix=FLAGS.url, debug=FLAGS.debug)
 
   for filename in FLAGS.files:
     upload(client, filename)

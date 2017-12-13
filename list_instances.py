@@ -12,7 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 """List all task instances for your Organization via the GCI API."""
 
 import argparse
@@ -20,31 +19,31 @@ import re
 
 import client as gciclient
 
-
 argparser = argparse.ArgumentParser(description='GCI Task Instances')
-argparser.add_argument('--apikey', type=str, nargs='?', required=True,
-                       help='api key')
-argparser.add_argument('--url', type=str, nargs='?',
-                       default='https://codein.withgoogle.com',
-                       help='server url')
-argparser.add_argument('--debug', action='store_true',
-                       help='enable debug request logging')
+argparser.add_argument(
+    '--apikey', type=str, nargs='?', required=True, help='api key')
+argparser.add_argument(
+    '--url',
+    type=str,
+    nargs='?',
+    default='https://codein.withgoogle.com',
+    help='server url')
+argparser.add_argument(
+    '--debug', action='store_true', help='enable debug request logging')
 
 FLAGS = argparser.parse_args()
 
 
 def main():
   client = gciclient.GCIAPIClient(
-      auth_token=FLAGS.apikey,
-      url_prefix=FLAGS.url,
-      debug=FLAGS.debug)
+      auth_token=FLAGS.apikey, url_prefix=FLAGS.url, debug=FLAGS.debug)
 
   next_page = 1
   while next_page > 0:
     instances = client.ListTaskInstances(page=next_page)
     for ti in instances['results']:
       print '\t'.join([
-          str(ti['id']),
+          str(ti['id']),  # yapf: disable
           ti['status'].encode('utf-8'),
           ti['student_display_name'].encode('utf-8'),
           ti['task_definition_name'].encode('utf-8')
