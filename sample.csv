@@ -1,2 +1,7 @@
 name,description,max_instances,mentors,tags,is_beginner,categories,time_to_complete_in_days,private_metadata
-"Test Task","Long Description",3,"mentor1@example.org,mentor2@example.org","a,b",yes,"1,2",5,private
+"Test Redder","Long Description",3,"ospotest2@gmail.com,ospotest4@gmail.com","a,b",yes,"1,2",5,private
+"Test Bluer","Long Description",3,"ospotest2@gmail.com,ospotest4@gmail.com","a,b",yes,"1,2",5,private
+"Test Greener","Long Description",3,"ospotest2@gmail.com,ospotest4@gmail.com","a,b",yes,"1,2",5,private
+"Test Oranger","Long Description",3,"ospotest2@gmail.com,ospotest3@gmail.com","a,b",no,"1,2",5,private
+"Test Pinker","Long Description",3,"ospotest2@gmail.com,ospotest3@gmail.com","a,b",no,"1,2",5,private
+

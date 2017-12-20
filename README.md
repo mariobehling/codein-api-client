@@ -28,6 +28,24 @@ Debian, it is in the `python-requests` package.
 Organization Adminstrators can find their API key on their
 [User Profile](https://codein.withgoogle.com/).
 
+# Code Style
+
+We follow the [Google Python Style
+Guide](https://google.github.io/styleguide/pyguide.html) with a few
+modifications to match the *Google internal* version.  The primary one is the
+use of 2 space indents.
+
+Use [yapf](https://github.com/google/yapf) to keep the code formatted nicely.
+You can set up an auto-save hook in your editor, or run it manually:
+
+```shell
+# one time setup:
+pip install yapf
+
+# format files:
+yapf -i *.py
+```
+
 # Bugs/Support
 
 To report bugs, please email [gci-support@google.com](mailto:gci-support@google.com).
