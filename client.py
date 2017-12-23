@@ -61,10 +61,12 @@ class GCIAPIClient(object):
   def _Url(self, path):
     return urlparse.urljoin(self.url_prefix, path) + '/'
 
-  def ListTasks(self, page=1):
+  def ListTasks(self, page_size=25, page=1):
     """Fetches a list of tasks.
 
         Args:
+          page_size: the number of records to fetch
+                     per page(Default: 25, Maximum: 100)
           page: Which page of results to return.
 
         Returns:
@@ -73,9 +75,15 @@ class GCIAPIClient(object):
         Raises:
           HTTPError: a 4XX client error or 5XX server error
                      response was returned.
+          ValueError: if page_size is less than or equal to 0
+                      or greater than 100
         """
+    self._CheckPageSize(page_size)
     r = requests.get(
-        self._Url('tasks'), headers=self.headers, params={
+        self._Url('tasks'),
+        headers=self.headers,
+        params={
+            'page_size': page_size,
             'page': page
         })
     r.raise_for_status()
@@ -158,22 +166,30 @@ class GCIAPIClient(object):
       return r.json()
     return
 
-  def ListTaskInstances(self, page=1):
+  def ListTaskInstances(self, page_size=25, page=1):
     """Fetches a list of tasks.
 
         Args:
+          page_size: the number of records to fetch
+                     per page(Default: 25, Maximum: 100)
           page: Which page of results to return.
 
         Returns:
           A JSON encoded list of task instances.
 
         Raises:
-
           HTTPError: a 4XX client error or 5XX server error
                      response was returned.
+          ValueError: if page_size is less than or equal to 0
+                      or greater than 100
         """
+
+    self._CheckPageSize(page_size)
     r = requests.get(
-        self._Url('instances'), headers=self.headers, params={
+        self._Url('instances'),
+        headers=self.headers,
+        params={
+            'page_size': page_size,
             'page': page
         })
     r.raise_for_status()
@@ -196,3 +212,19 @@ class GCIAPIClient(object):
         self._Url('instances/%d' % task_instance_id), headers=self.headers)
     r.raise_for_status()
     return r.json()
+
+  def _CheckPageSize(self, page_size):
+    """Helper function to check if page_size is within the range of:
+       0 < page_size <= 100.
+
+        Args:
+          page_size: An integer representing page size
+
+        Raises:
+          ValueError: if page_size is less than or equal to 0
+                      or greater than 100
+        """
+    if page_size <= 0:
+      raise ValueError("page_size must be greater than 0.")
+    elif page_size > 100:
+      raise ValueError("page_size is limited to a maximum of 100 records.")
